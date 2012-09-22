@@ -74,11 +74,17 @@
         var info = next420();
         if (info.minutes === 0) {
             $("#headline").html("<h1>It is now 4:20 PM in:</h1>").addClass("alert alert-info");
+            if ($('body').data('last-minutes')) { // Just switched. Rabbit strikes again.
+              $('.place-tab').removeClass('active');
+              $('#place').attr('src','gfx/rabbit.png');
+              $('body').data('active-place',null);
+            }
         } else if (info.minutes === 1) {
             $("#headline").html("<h2>In 1 minute, it will be 4:20 PM in:</h2>").removeClass("alert alert-info");
         } else {
             $("#headline").html("<h2>In "+info.minutes+" minutes, it will be 4:20 PM in:</h2>").removeClass("alert alert-info");
         }
+        $('body').data('last-minutes',info.minutes);
         $('#places').html('');
         for (var i=0; i<info.places.length; i++) {
           $('#places').append(
