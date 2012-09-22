@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Global 4:20 countdown</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="themes/spacelab/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+      a:focus, a:active { outline: 0 }
+      #place { width:100%; height:500px;border:none; }
+    </style>
+    <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="gfx/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="gfx/apple-touch-icon-144.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="gfx/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="gfx/apple-touch-icon-72.png">
+    <link rel="apple-touch-icon-precomposed" href="gfx/apple-touch-icon-57.png">
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <span class="brand">Global 4:20 countdown</span>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right">
+              <li><a target="_blank" href="https://github.com/thedod/global420">Fork me</a></li>
+	    </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+          <div class="span12">
+            <div id="headline"></div>
+          </div>
+      </div>
+      <div class="row">
+        <div class="span12">
+          <div class="tabbable tabs-left">
+            <ul id="places" class="nav nav-tabs"></ul>
+            <div class="tab-content">
+              <iframe id="place" name="place" src="gfx/rabbit.png"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="tz.js"></script>
+    <script type="text/javascript" src="global420.js"></script>
+    <script type="text/javascript">
+      var refresh420 = function() {
+        var info = next420();
+        if (info.minutes === 0) {
+            $("#headline").html("<h1>It is now 4:20 PM in:</h1>").addClass("alert alert-info");
+        } else if (info.minutes === 1) {
+            $("#headline").html("<h2>In 1 minute, it will be 4:20 PM in:</h2>").removeClass("alert alert-info");
+        } else {
+            $("#headline").html("<h2>In "+info.minutes+" minutes, it will be 4:20 PM in:</h2>").removeClass("alert alert-info");
+        }
+        $('#places').html('');
+        for (var i=0; i<info.places.length; i++) {
+          $('#places').append(
+            $('<li/>').addClass('place-tab').append(
+              $('<a/>').text(info.places[i]).attr(
+                'target','place').attr(
+                'href','https://duckduckgo.com/?q='+encodeURIComponent(info.places[i])
+              ).click(function() {
+                $('.place-tab').removeClass('active');
+                $(this).parent().addClass('active');
+                $('body').data('active-place',$(this).text()); // Short term memory reinforcement
+                return true;
+             })
+            )
+          );
+        }
+        $('#places li:contains("'+$('body').data('active-place')+'")').addClass('active');
+        setTimeout(refresh420,10000);
+      };
+      $(function() {
+        $('body').data('active-place','nowhere really');
+        refresh420();
+      });
+    </script>
+  </body>
+</html>
