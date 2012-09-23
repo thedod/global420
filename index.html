@@ -14,7 +14,7 @@
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
       a:focus, a:active { outline: 0 }
-      #place { width:100%; height:500px;border:none; }
+      #place { width:100%; border:none }
     </style>
     <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 
@@ -39,7 +39,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <span class="brand">Global 4:20 countdown</span>
+          <span id="brand" class="brand"></span>
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
               <li><a target="_blank" href="https://github.com/thedod/global420">Fork me</a></li>
@@ -56,10 +56,10 @@
       </div>
       <div class="row">
         <div class="span12">
-          <div class="tabbable tabs-left">
+          <div id="place-and-tabs" class="tabbable tabs-left">
             <ul id="places" class="nav nav-tabs"></ul>
             <div class="tab-content">
-              <iframe id="place" name="place" src="gfx/rabbit.png"></iframe>
+              <iframe seamless id="place" name="place"></iframe>
             </div>
           </div>
         </div>
@@ -73,18 +73,22 @@
       var refresh420 = function() {
         var info = next420();
         if (info.minutes === 0) {
+	    $('#brand').text("Yay! It's 4:20!");
             $("#headline").html("<h1>It is now 4:20 PM in:</h1>").addClass("alert alert-info");
-            if ($('body').data('last-minutes')) { // Just switched. Rabbit strikes again.
+            if ($(window).data('last-minutes')) { // Just switched. Rabbit strikes again.
               $('.place-tab').removeClass('active');
               $('#place').attr('src','gfx/rabbit.png');
-              $('body').data('active-place',null);
+              $(window).data('active-place',null);
             }
         } else if (info.minutes === 1) {
+	    $('#brand').text("1 minute to 4:20");
             $("#headline").html("<h2>In 1 minute, it will be 4:20 PM in:</h2>").removeClass("alert alert-info");
         } else {
+	    $('#brand').text(""+info.minutes+" minutes to 4:20");
             $("#headline").html("<h2>In "+info.minutes+" minutes, it will be 4:20 PM in:</h2>").removeClass("alert alert-info");
         }
-        $('body').data('last-minutes',info.minutes);
+	document.title = $('#brand').text();
+        $(window).data('last-minutes',info.minutes);
         $('#places').html('');
         for (var i=0; i<info.places.length; i++) {
           $('#places').append(
@@ -95,17 +99,23 @@
               ).click(function() {
                 $('.place-tab').removeClass('active');
                 $(this).parent().addClass('active');
-                $('body').data('active-place',$(this).text()); // Short term memory reinforcement
+                $(window).data('active-place',$(this).text()); // Short term memory reinforcement
                 return true;
              })
             )
           );
         }
-        $('#places li:contains("'+$('body').data('active-place')+'")').addClass('active');
+        $('#places li:contains("'+$(window).data('active-place')+'")').addClass('active');
+	var available_height = $(window).height()-$("#place").position().top;
+	var places_height = $('#places').height();
+	console.log(available_height,places_height);
+	$("#place").height(available_height<places_height?places_height:available_height);
+	console.log($("#place").height());
         setTimeout(refresh420,10000);
       };
       $(function() {
-        $('body').data('active-place','nowhere really');
+        $('#place').attr('src','gfx/rabbit.png');
+        $(window).data('active-place','nowhere really').resize(refresh420);
         refresh420();
       });
     </script>
