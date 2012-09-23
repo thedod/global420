@@ -6,10 +6,14 @@ for r in csv.reader(file("country.csv")):
   countries[r[0]] = r[1]
 zones = {}
 for r in csv.reader(file("zone.csv")):
-  city = r[2].split('/')[-1].replace('_',' ')
-  country = countries[r[1]]
+  parts = r[2].replace('_',' ').split('/')
+  city = parts[-1]
+  if len(parts)>2: # e.g. America/North_Dakota/New_Salem
+    country = parts[1] # e.g. North Dakota
+  else: # e.g. America/Denver
+    country = countries[r[1]] # e.g. United States
   if country==city: # Avoid awkward searches like "Anguilla, Anguilla"
-    country = ', '.join(r[2].split('/')[:-1])
+    country = parts[0] # Use continent instead
   zones[int(r[0])] = {"name":', '.join((city,country))}
   # zones[int(r[0])] = {"name":r[2].replace('_',' ')}
 now = int(time.time())
