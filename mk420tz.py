@@ -6,7 +6,11 @@ for r in csv.reader(file("country.csv")):
   countries[r[0]] = r[1]
 zones = {}
 for r in csv.reader(file("zone.csv")):
-  zones[int(r[0])] = {"name":r[2].split('/')[-1].replace('_',' ')+', '+countries[r[1]]}
+  city = r[2].split('/')[-1].replace('_',' ')
+  country = countries[r[1]]
+  if country==city: # Avoid awkward searches like "Anguilla, Anguilla"
+    country = ', '.join(r[2].split('/')[:-1])
+  zones[int(r[0])] = {"name":', '.join((city,country))}
   # zones[int(r[0])] = {"name":r[2].replace('_',' ')}
 now = int(time.time())
 for r in csv.reader(file("timezone.csv")):
