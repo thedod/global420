@@ -1,14 +1,15 @@
 # Generates tz.js from time zone csv files
 # get latest files from http://timezonedb.com/download
 import csv,json,time,os
-now = int(time.time())
-zonerows = csv.reader(file("zone.csv"))
+countries = {}
+for r in csv.reader(file("country.csv")):
+  countries[r[0]] = r[1]
 zones = {}
-for r in zonerows:
-  # zones[int(r[0])] = {"name":r[2].split('/')[-1].replace('_',' ')}
-  zones[int(r[0])] = {"name":r[2].replace('_',' ')}
-timezonerows = csv.reader(file("timezone.csv"))
-for r in timezonerows:
+for r in csv.reader(file("zone.csv")):
+  zones[int(r[0])] = {"name":r[2].split('/')[-1].replace('_',' ')+', '+countries[r[1]]}
+  # zones[int(r[0])] = {"name":r[2].replace('_',' ')}
+now = int(time.time())
+for r in csv.reader(file("timezone.csv")):
   code = int(r[0])
   if not zones.has_key(code):
     continue
