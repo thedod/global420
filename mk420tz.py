@@ -13,7 +13,7 @@ for r in csv.reader(file("zone.csv")):
   else: # e.g. America/Denver
     country = countries[r[1]] # e.g. United States
   if country==city: # Avoid awkward searches like "Anguilla, Anguilla"
-    country = parts[0] # Use continent instead
+    country = r[1] # Use code instead
   zones[int(r[0])] = {"name":', '.join((city,country))}
   # zones[int(r[0])] = {"name":r[2].replace('_',' ')}
 now = int(time.time())
