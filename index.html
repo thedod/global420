@@ -106,7 +106,7 @@
                 return true;
               }).prepend(
                 $('<i/>').addClass('icon-map-marker'
-                ).tooltip({title:'Open Street Map',placement:'right'}
+                // Too buggy // ).tooltip({title:'Open Street Map',placement:'right'}
                 ).click(function() {
                   select_place($(this).parent());
                   $('#place').attr('src','http://nominatim.openstreetmap.org/search/'+encodeURIComponent($(this).parent().text()));
