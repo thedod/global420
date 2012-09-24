@@ -70,6 +70,11 @@
     <script type="text/javascript" src="tz.js"></script>
     <script type="text/javascript" src="global420.js"></script>
     <script type="text/javascript">
+      var select_place = function(link) {
+        $('.place-tab').removeClass('active');
+        link.parent().addClass('active');
+        $(window).data('active-place',link.text()); // Short term memory reinforcement
+      };
       var refresh420 = function() {
         var info = next420();
         if (info.minutes === 0) {
@@ -93,15 +98,21 @@
         for (var i=0; i<info.places.length; i++) {
           $('#places').append(
             $('<li/>').addClass('place-tab').append(
-              $('<a/>').text(info.places[i]).attr(
-                'target','place').attr(
-                'href','https://duckduckgo.com/?q='+encodeURIComponent(info.places[i])
+              $('<a/>').text(' '+info.places[i]
+              ).attr('href','#'
               ).click(function() {
-                $('.place-tab').removeClass('active');
-                $(this).parent().addClass('active');
-                $(window).data('active-place',$(this).text()); // Short term memory reinforcement
+                select_place($(this));
+                $('#place').attr('src','https://duckduckgo.com/?q='+encodeURIComponent($(this).parent().text()));
                 return true;
-             })
+              }).prepend(
+                $('<i/>').addClass('icon-map-marker'
+                ).tooltip({title:'Open Street Map',placement:'right'}
+                ).click(function() {
+                  select_place($(this).parent());
+                  $('#place').attr('src','http://nominatim.openstreetmap.org/search/'+encodeURIComponent($(this).parent().text()));
+                  return false;
+                })
+              )
             )
           );
         }

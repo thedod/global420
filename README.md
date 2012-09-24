@@ -27,6 +27,7 @@ To be notified when the database is changed, you can follow [@timezonedb](https:
 * To [Timezonedb](http://timezonedb.com) for maintaining the data
 * To [Twitter](http://twitter.github.com) for [Bootstrap](http://twitter.github.com/bootstrap)
 * To [Bootswatch](http://bootswatch.com/) for the themes
+* To [DuckDuckGo](http://duckduckgo.com/) and [Open Street Map](http://www.openstreetmap.org/) for giving us stuff to link to
 
 ----------------------------
 
