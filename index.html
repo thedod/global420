@@ -123,7 +123,7 @@
                 ).tooltip({title:'Flickriver',placement:'right'}
                 ).click(function() {
                   select_place($(this).parent());
-                  $('#place').attr('src','http://flickriver.com/search/'+encodeURIComponent($(this).parent().text())+'/recent');
+                  $('#place').attr('src','http://flickriver.com/search/'+encodeURIComponent($(this).parent().text().split(',')[0])+'/recent');
                   return false;
                 })
               )
@@ -131,7 +131,7 @@
           );
         }
         $('#places li:contains("'+$(window).data('active-place')+'")').addClass('active');
-	var available_height = $(window).height()-$("#place").position().top;
+	var available_height = $(window).height()-($("#place").position().top+23); // anti-scrollbar voodoo
 	var places_height = $('#places').height();
 	$("#place").height(available_height<places_height?places_height:available_height);
         setTimeout(refresh420,10000);
