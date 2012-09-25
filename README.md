@@ -5,7 +5,7 @@ This [web page](http://zzzen.com/global420) answers 2 simple questions:
 
 Feel free to fork this if you prefer some other hour :)
 
-Well, data is a bitch, and the standard [time zone db](http://timezonedb.com/) needs to
+Turns out, the standard [time zone db](http://timezonedb.com/) needs to
 be pre-processed in order to easily answer these seemingly simple questions.
 Not only that - the database keeps changing according to local decisions regarding
 daylight saving time.
@@ -27,7 +27,8 @@ To be notified when the database is changed, you can follow [@timezonedb](https:
 * To [Timezonedb](http://timezonedb.com) for maintaining the data
 * To [Twitter](http://twitter.github.com) for [Bootstrap](http://twitter.github.com/bootstrap)
 * To [Bootswatch](http://bootswatch.com/) for the themes
-* To [DuckDuckGo](http://duckduckgo.com/) and [Open Street Map](http://www.openstreetmap.org/) for giving us stuff to link to
+* To [DuckDuckGo](http://duckduckgo.com/), [Open Street Map](http://www.openstreetmap.org/) and [flickriver](http://flickriver.com) for giving us stuff to link to
+* To my wife for discovering the need for such an app. This is her birthday present.
 
 ----------------------------
 

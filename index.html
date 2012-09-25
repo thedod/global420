@@ -95,22 +95,35 @@
         }
 	document.title = $('#brand').text();
         $(window).data('last-minutes',info.minutes);
+        $('i').tooltip('hide'); // or it gets uglee
         $('#places').html('');
         for (var i=0; i<info.places.length; i++) {
           $('#places').append(
             $('<li/>').addClass('place-tab').append(
-              $('<a/>').text(' '+info.places[i]
+              $('<a/>').text(info.places[i]
               ).attr('href','#'
               ).click(function() {
                 select_place($(this));
                 $('#place').attr('src','https://duckduckgo.com/?q='+encodeURIComponent($(this).parent().text()));
                 return true;
               }).prepend(
+                $('<span/>').text(' ')
+              ).prepend(
                 $('<i/>').addClass('icon-map-marker'
-                // Too buggy // ).tooltip({title:'Open Street Map',placement:'right'}
+                ).tooltip({title:'Open Street Map',placement:'right'}
                 ).click(function() {
                   select_place($(this).parent());
                   $('#place').attr('src','http://nominatim.openstreetmap.org/search/'+encodeURIComponent($(this).parent().text()));
+                  return false;
+               })
+              ).prepend(
+                $('<span/>').text(' ')
+              ).prepend(
+                $('<i/>').addClass('icon-camera'
+                ).tooltip({title:'Flickriver',placement:'right'}
+                ).click(function() {
+                  select_place($(this).parent());
+                  $('#place').attr('src','http://flickriver.com/search/'+encodeURIComponent($(this).parent().text())+'/recent');
                   return false;
                 })
               )
