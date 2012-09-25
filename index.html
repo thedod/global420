@@ -74,27 +74,21 @@
       var select_place = function(link) {
         $('.place-tab').removeClass('active');
         link.parent().addClass('active');
-        $(window).data('active-place',link.text().replace(/^ */,'')); // Short term memory reinforcement
+        $(window).data('active-place',link.text().replace(/^ */,''));
         refresh420();
       };
       var refresh420 = function() {
         var info = next420();
         if (info.minutes === 0) {
-	    $('#brand').text("Yay! It's 4:20!");
-            $("#headline").html("<h1>It is now 4:20 PM in:</h1>").addClass("alert alert-info");
-            if ($(window).data('last-minutes')) { // Just switched. Rabbit strikes again.
-              $('.place-tab').removeClass('active');
-              $('#place').attr('src','gfx/rabbit.png');
-              $(window).data('active-place',null);
-            }
+	  $('#brand').text("Yay! It's 4:20");
+          $("#headline").html("<h1>It is now 4:20 PM in:</h1>").addClass("alert alert-info");
         } else if (info.minutes === 1) {
-	    $('#brand').text("1 minute to 4:20");
-            $("#headline").html("<h2>In 1 minute, it will be 4:20 PM in:</h2>").removeClass("alert alert-info");
+	  $('#brand').text("1 minute to 4:20");
+          $("#headline").html("<h2>In 1 minute, it will be 4:20 PM in:</h2>").removeClass("alert alert-info");
         } else {
-	    $('#brand').text(""+info.minutes+" minutes to 4:20");
-            $("#headline").html("<h2>In "+info.minutes+" minutes, it will be 4:20 PM in:</h2>").removeClass("alert alert-info");
+	  $('#brand').text(""+info.minutes+" minutes to 4:20");
+          $("#headline").html("<h2>In "+info.minutes+" minutes, it will be 4:20 PM in:</h2>").removeClass("alert alert-info");
         }
-        $(window).data('last-minutes',info.minutes);
         $('i').tooltip('hide'); // or it gets uglee
         $('#places').html('');
         for (var i=0; i<info.places.length; i++) {
@@ -154,7 +148,13 @@
             )
           );
         }
-        $('#places li:contains("'+$(window).data('active-place')+'")').addClass('active');
+        var stale = true;
+        $('#places li:contains("'+$(window).data('active-place')+'")').addClass('active').each(function(){stale = false;});
+        if (stale) { // 4:21, or someone wrote #Your%20face as hash :)
+          $('#place').attr('src','gfx/rabbit.png');
+          $(window).data('active-place','');
+          location.hash = '';
+        }
         if ($(window).data('active-place')) {
             $('#brand').text($('#brand').text()+' in '+$(window).data('active-place'));
         } 
