@@ -74,7 +74,8 @@
       var select_place = function(link) {
         $('.place-tab').removeClass('active');
         link.parent().addClass('active');
-        $(window).data('active-place',link.text()); // Short term memory reinforcement
+        $(window).data('active-place',link.text().replace(/^ */,'')); // Short term memory reinforcement
+        refresh420();
       };
       var refresh420 = function() {
         var info = next420();
@@ -93,7 +94,6 @@
 	    $('#brand').text(""+info.minutes+" minutes to 4:20");
             $("#headline").html("<h2>In "+info.minutes+" minutes, it will be 4:20 PM in:</h2>").removeClass("alert alert-info");
         }
-	document.title = $('#brand').text();
         $(window).data('last-minutes',info.minutes);
         $('i').tooltip('hide'); // or it gets uglee
         $('#places').html('');
@@ -101,10 +101,12 @@
           $('#places').append(
             $('<li/>').addClass('place-tab').append(
               $('<a/>').text(info.places[i]
-              ).attr('href','#'
+              ).attr('href','#'+info.places[i]
               ).click(function() {
                 select_place($(this));
-                $('#place').attr('src','https://duckduckgo.com/?q='+encodeURIComponent($(this).parent().text()));
+                $('#place').attr(
+                  'src','https://duckduckgo.com/?q='+encodeURIComponent($(this).parent().text())
+		);
                 return true;
               }).prepend(
                 $('<span/>').text(' ')
@@ -113,8 +115,10 @@
                 ).tooltip({title:'Open Street Map',placement:'right'}
                 ).click(function() {
                   select_place($(this).parent());
-                  $('#place').attr('src','http://nominatim.openstreetmap.org/search/'+encodeURIComponent($(this).parent().text()));
-                  return false;
+                  $('#place').attr(
+		    'src','http://nominatim.openstreetmap.org/search/'+encodeURIComponent($(this).parent().text())
+		  );
+                  return true;
                })
               ).prepend(
                 $('<span/>').text(' ')
@@ -123,14 +127,38 @@
                 ).tooltip({title:'Flickriver',placement:'right'}
                 ).click(function() {
                   select_place($(this).parent());
-                  $('#place').attr('src','http://flickriver.com/search/'+encodeURIComponent($(this).parent().text().split(',')[0])+'/recent');
-                  return false;
+                  $('#place').attr(
+		    'src','http://flickriver.com/search/'+encodeURIComponent($(this).parent().text().split(',')[0])+'/recent'
+		  );
+                  return true;
+                })
+              ).prepend(
+                $('<span/>').text(' ')
+              ).prepend(
+                $('<i/>').addClass('icon-edit'
+                ).tooltip({title:'Tweet',placement:'right'}
+                ).click(function() {
+                  select_place($(this).parent());
+                  $('#place').attr(
+                    'src','https://duckduckgo.com/?q='+encodeURIComponent($(this).parent().text())
+		  );
+		  window.open(
+		    'https://twitter.com/intent/tweet?text='+encodeURIComponent('#FourTwenty: '+document.title)+
+		    '&url='+encodeURIComponent(
+		      location.href.split('#')[0]+'#'+encodeURIComponent($(this).parent().attr('href').slice(1))
+		    )
+		  );
+                  return true;
                 })
               )
             )
           );
         }
         $('#places li:contains("'+$(window).data('active-place')+'")').addClass('active');
+        if ($(window).data('active-place')) {
+            $('#brand').text($('#brand').text()+' in '+$(window).data('active-place'));
+        } 
+	document.title = $('#brand').text();
 	var available_height = $(window).height()-($("#place").position().top+23); // anti-scrollbar voodoo
 	var places_height = $('#places').height();
 	$("#place").height(available_height<places_height?places_height:available_height);
@@ -138,7 +166,12 @@
       };
       $(function() {
         $('#place').attr('src','gfx/rabbit.png');
-        $(window).data('active-place','nowhere really').resize(refresh420);
+        $(window).data('active-place',location.hash.slice(1)).resize(refresh420);
+	if ($(window).data('active-place')) {
+          $('#place').attr(
+            'src','https://duckduckgo.com/?q='+encodeURIComponent($(window).data('active-place'))
+          );
+	}
         refresh420();
       });
     </script>
