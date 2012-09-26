@@ -71,6 +71,17 @@
     <script type="text/javascript" src="tz.js"></script>
     <script type="text/javascript" src="global420.js"></script>
     <script type="text/javascript">
+      var check420 = function() {
+        var current = next420().minutes;
+        var previous = $(window).data('minutes420');
+        if (current === previous) {
+          setTimeout(check420,1000);
+          return;
+        }
+        $(window).data('minutes420',current);
+        refresh420();
+        setTimeout(check420,1000);
+      }
       var select_place = function(link) {
         $('.place-tab').removeClass('active');
         link.parent().addClass('active');
@@ -162,17 +173,20 @@
 	var available_height = $(window).height()-($("#place").position().top+23); // anti-scrollbar voodoo
 	var places_height = $('#places').height();
 	$("#place").height(available_height<places_height?places_height:available_height);
-        setTimeout(refresh420,10000);
       };
       $(function() {
         $('#place').attr('src','gfx/rabbit.png');
-        $(window).data('active-place',location.hash.slice(1)).resize(refresh420);
+        $(window).data(
+          'active-place',location.hash.slice(1)
+        ).data(
+          'minutes420',-1
+        ).resize(refresh420);
 	if ($(window).data('active-place')) {
           $('#place').attr(
             'src','https://duckduckgo.com/?q='+encodeURIComponent($(window).data('active-place'))
           );
 	}
-        refresh420();
+        check420();
       });
     </script>
   </body>
