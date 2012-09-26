@@ -71,6 +71,23 @@
     <script type="text/javascript" src="tz.js"></script>
     <script type="text/javascript" src="global420.js"></script>
     <script type="text/javascript">
+      $(function() {
+        $('#place').attr('src','gfx/rabbit.png');
+        $(window).data(
+          'active-place',location.hash.slice(1)
+        ).data(
+          // 'base-url',location.href.split('#')[0] // use current url for tweets etc.
+          'base-url','http://is.gd/fourtwenty' // use shortened url
+        ).data(
+          'minutes420',-1
+        ).resize(refresh420);
+	if ($(window).data('active-place')) {
+          $('#place').attr(
+            'src','https://duckduckgo.com/?q='+encodeURIComponent($(window).data('active-place'))
+          );
+	}
+        check420();
+      });
       var check420 = function() {
         var current = next420().minutes;
         var previous = $(window).data('minutes420');
@@ -110,7 +127,7 @@
               ).click(function() {
                 select_place($(this));
                 $('#place').attr(
-                  'src','https://duckduckgo.com/?q='+encodeURIComponent($(this).parent().text())
+                  'src','https://duckduckgo.com/?q='+encodeURIComponent($(window).data('active-place'))
 		);
                 return true;
               }).prepend(
@@ -121,7 +138,7 @@
                 ).click(function() {
                   select_place($(this).parent());
                   $('#place').attr(
-		    'src','http://nominatim.openstreetmap.org/search/'+encodeURIComponent($(this).parent().text())
+		    'src','http://nominatim.openstreetmap.org/search/'+encodeURIComponent($(window).data('active-place'))
 		  );
                   return true;
                })
@@ -133,7 +150,7 @@
                 ).click(function() {
                   select_place($(this).parent());
                   $('#place').attr(
-		    'src','http://flickriver.com/search/'+encodeURIComponent($(this).parent().text().split(',')[0])+'/recent'
+		    'src','http://flickriver.com/search/'+$(window).data('active-place').split(',')[0]+'/'
 		  );
                   return true;
                 })
@@ -145,12 +162,12 @@
                 ).click(function() {
                   select_place($(this).parent());
                   $('#place').attr(
-                    'src','https://duckduckgo.com/?q='+encodeURIComponent($(this).parent().text())
+                    'src','https://duckduckgo.com/?q='+encodeURIComponent($(window).data('active-place'))
 		  );
 		  window.open(
 		    'https://twitter.com/intent/tweet?text='+encodeURIComponent('#FourTwenty: '+document.title)+
 		    '&url='+encodeURIComponent(
-		      location.href.split('#')[0]+'#'+encodeURIComponent($(this).parent().attr('href').slice(1))
+		      $(window).data('base-url')+'#'+encodeURIComponent($(window).data('active-place'))
 		    )
 		  );
                   return true;
@@ -174,20 +191,6 @@
 	var places_height = $('#places').height();
 	$("#place").height(available_height<places_height?places_height:available_height);
       };
-      $(function() {
-        $('#place').attr('src','gfx/rabbit.png');
-        $(window).data(
-          'active-place',location.hash.slice(1)
-        ).data(
-          'minutes420',-1
-        ).resize(refresh420);
-	if ($(window).data('active-place')) {
-          $('#place').attr(
-            'src','https://duckduckgo.com/?q='+encodeURIComponent($(window).data('active-place'))
-          );
-	}
-        check420();
-      });
     </script>
   </body>
 </html>
