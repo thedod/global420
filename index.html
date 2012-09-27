@@ -180,24 +180,6 @@
 		  );
                   return true;
                 })
-              ).prepend(
-                $('<span/>').text(' ')
-              ).prepend(
-                $('<i/>').addClass('icon-social-facebook'
-                ).tooltip({title:'Share on FB',placement:'right'}
-                ).click(function() {
-                  select_place($(this).parent());
-                  $('#place').attr(
-                    'src','https://duckduckgo.com/?q='+encodeURIComponent($(window).data('active-place'))
-		  );
-		  window.open(
-		    'https://facebook.com/sharer.php?u='+
-		    encodeURIComponent(
-		      $(window).data('base-url')+'#'+encodeURIComponent($(window).data('active-place'))
-		    )
-		  );
-                  return true;
-                })
               )
             )
           );
