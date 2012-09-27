@@ -17,23 +17,12 @@
       #place { width:100%; border:none }
 
       [class^="icon-"] { background-image:url("bootstrap/img/glyphicons-halflings.png") !important }
-      /* See http://favbulous.com/post/1006/create-custom-icons-for-twitter-bootstrap-easily */
-      [class^="social-icon-"] {
-        background-image:url("gfx/social-icons.png");
-        display: inline-block;
-        width: 17px;
-        height: 16px;
-        *margin-right: .3em;
-        line-height: 14px;
-        vertical-align: -2px;
-        background-position: 14px 14px;
-        background-repeat: no-repeat;
+      /* Custom icons: see http://favbulous.com/post/1006/create-custom-icons-for-twitter-bootstrap-easily */
+      i[class^="icon-social-"] {
+        background-image:url("gfx/social-icons.png") !important;
       }
-      [class^="social-icon-"]:last-child {
-        *margin-left: 0;
-      }
-      .social-icon-facebook{ background-position: 0 0; width: 14px; height: 14px; } 
-      .social-icon-twitter{ background-position: 0 -19px; width: 14px; height: 14px; } 
+      .icon-social-facebook{ background-position: 0 0; width: 14px; height: 14px; } 
+      .icon-social-twitter{ background-position: 0 -19px; width: 14px; height: 14px; } 
 
     </style>
     <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -176,7 +165,7 @@
               ).prepend(
                 $('<span/>').text(' ')
               ).prepend(
-                $('<i/>').addClass('social-icon-twitter'
+                $('<i/>').addClass('icon-social-twitter'
                 ).tooltip({title:'Tweet',placement:'right'}
                 ).click(function() {
                   select_place($(this).parent());
@@ -194,7 +183,7 @@
               ).prepend(
                 $('<span/>').text(' ')
               ).prepend(
-                $('<i/>').addClass('social-icon-facebook'
+                $('<i/>').addClass('icon-social-facebook'
                 ).tooltip({title:'Share on FB',placement:'right'}
                 ).click(function() {
                   select_place($(this).parent());
