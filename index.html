@@ -15,7 +15,26 @@
       }
       a:focus, a:active { outline: 0 }
       #place { width:100%; border:none }
+
       [class^="icon-"] { background-image:url("bootstrap/img/glyphicons-halflings.png") !important }
+      /* See http://favbulous.com/post/1006/create-custom-icons-for-twitter-bootstrap-easily */
+      [class^="social-icon-"] {
+        background-image:url("gfx/social-icons.png");
+        display: inline-block;
+        width: 17px;
+        height: 16px;
+        *margin-right: .3em;
+        line-height: 14px;
+        vertical-align: -2px;
+        background-position: 14px 14px;
+        background-repeat: no-repeat;
+      }
+      [class^="social-icon-"]:last-child {
+        *margin-left: 0;
+      }
+      .social-icon-facebook{ background-position: 0 0; width: 14px; height: 14px; } 
+      .social-icon-twitter{ background-position: 0 -19px; width: 14px; height: 14px; } 
+
     </style>
     <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 
@@ -157,7 +176,7 @@
               ).prepend(
                 $('<span/>').text(' ')
               ).prepend(
-                $('<i/>').addClass('icon-edit'
+                $('<i/>').addClass('social-icon-twitter'
                 ).tooltip({title:'Tweet',placement:'right'}
                 ).click(function() {
                   select_place($(this).parent());
@@ -167,6 +186,24 @@
 		  window.open(
 		    'https://twitter.com/intent/tweet?text='+encodeURIComponent('#FourTwenty: '+document.title)+
 		    '&url='+encodeURIComponent(
+		      $(window).data('base-url')+'#'+encodeURIComponent($(window).data('active-place'))
+		    )
+		  );
+                  return true;
+                })
+              ).prepend(
+                $('<span/>').text(' ')
+              ).prepend(
+                $('<i/>').addClass('social-icon-facebook'
+                ).tooltip({title:'Share on FB',placement:'right'}
+                ).click(function() {
+                  select_place($(this).parent());
+                  $('#place').attr(
+                    'src','https://duckduckgo.com/?q='+encodeURIComponent($(window).data('active-place'))
+		  );
+		  window.open(
+		    'https://facebook.com/sharer.php?u='+
+		    encodeURIComponent(
 		      $(window).data('base-url')+'#'+encodeURIComponent($(window).data('active-place'))
 		    )
 		  );
