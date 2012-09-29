@@ -72,7 +72,7 @@
       <div class="row">
         <div class="span12">
           <div id="place-and-tabs" class="tabbable tabs-left">
-            <ul id="places" class="nav nav-tabs nav-stacked span3"></ul>
+            <ul id="places" class="nav nav-tabs span3"></ul>
             <div class="tab-content">
               <iframe seamless id="place" name="place"></iframe>
             </div>
@@ -122,10 +122,10 @@
       var refresh420 = function() {
         if ($(window).width() < 980) {
           $('#place-and-tabs').removeClass('tabs-left');
-          $('#places').addClass('nav-stacked');
+          $('#places').addClass('nav-pills nav-stacked').removeClass('nav-tabs span3');
         } else {
           $('#place-and-tabs').addClass('tabs-left');
-          $('#places').removeClass('nav-stacked');
+          $('#places').removeClass('nav-pills nav-stacked').addClass('nav-tabs span3');
         }
         var info = next420();
         if (info.minutes === 0) {
