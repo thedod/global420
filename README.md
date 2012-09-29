@@ -5,22 +5,17 @@ This [web page](http://zzzen.com/global420) answers 2 simple questions:
 
 Feel free to fork this if you prefer some other hour :)
 
-Turns out, the standard [time zone db](http://timezonedb.com/) needs to
+The standard [time zone db](http://timezonedb.com/) needs to
 be pre-processed in order to easily answer these seemingly simple questions.
-Not only that - the database keeps changing according to local decisions regarding
-daylight saving time.
 
-This means that whenver this happens, you need to generate `tz.js` by running
-`mk420tz.py` on the latest csv files (available [here](http://timezonedb.com/download)).
+Fo that, you should generate `tz.js` by running `mk420tz.py` on the latest csv files (available [here](http://timezonedb.com/download)).
 
-To be notified when the database is changed, you can follow [@timezonedb](https://twitter.com/timezonedb) on twitter, or use the [atom feed](http://feeds.feedburner.com/timezonedb).
+This should be done each time a time zone goes in or out of daylight saving time (DST). Best is to run this as a daily cron task.
 
-### Notes:
+Once in a while, the TZ database changes and you need to load fresh csv files. To be notified when this happens, you can follow [@timezonedb](https://twitter.com/timezonedb) on twitter, or use the [atom feed](http://feeds.feedburner.com/timezonedb).
 
-* If you want to start running this right away, _some_ version of `tz.js` comes with the repository.
-  Not necessarily the freshest, but no harm in running a slightly inaccurate version of this page ;)
-* If you want to check whether `tz.js` is up to date, the modification date of the source csv files
-  appears as a comment inside it.
+For your convenience, if you want to start running this right away, _some_ version of `tz.js` comes with the repository.
+Not necessarily the freshest, but no harm in running a slightly inaccurate version of this page ;)
 
 ### Thanks
 
