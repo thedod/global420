@@ -20,7 +20,7 @@
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
       a:focus, a:active { outline: 0 }
-      #place { width:100%; border:none }
+      #place { width:100%; border:none; height:500px }
 
       [class^="icon-"] { background-image:url("bootstrap/img/glyphicons-halflings.png") !important }
       /* Custom icons: see http://favbulous.com/post/1006/create-custom-icons-for-twitter-bootstrap-easily */
@@ -72,7 +72,7 @@
       <div class="row">
         <div class="span12">
           <div id="place-and-tabs" class="tabbable tabs-left">
-            <ul id="places" class="nav nav-tabs span3"></ul>
+            <ul id="places" class="nav nav-tabs nav-stacked span3"></ul>
             <div class="tab-content">
               <iframe seamless id="place" name="place"></iframe>
             </div>
@@ -120,6 +120,11 @@
         refresh420();
       };
       var refresh420 = function() {
+        if ($(window).width() < 980) {
+          $('#place-and-tabs').removeClass('tabs-left');
+        } else {
+          $('#place-and-tabs').addClass('tabs-left');
+        }
         var info = next420();
         if (info.minutes === 0) {
 	  $('#brand').text("Yay! It's 4:20");
@@ -201,9 +206,16 @@
             $('#brand').text($('#brand').text()+' in '+$(window).data('active-place'));
         } 
 	document.title = $('#brand').text();
-	var available_height = $(window).height()-($("#place").position().top+23); // anti-scrollbar voodoo
-	var places_height = $('#places').height();
-	$("#place").height(available_height<places_height?places_height:available_height);
+	var available_height = $(window).height()-($("#place").position().top+23); // 23 is anti-scrollbar voodoo
+        if (available_height < 500) {
+          available_height = 500;
+        }
+        if ($(window).width() < 980) {
+	  $("#place").height(available_height);
+        } else { 
+	  var places_height = $('#places').height();
+	  $("#place").height(available_height<places_height?places_height:available_height);
+        }
       };
     </script>
   </body>
