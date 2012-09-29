@@ -122,8 +122,10 @@
       var refresh420 = function() {
         if ($(window).width() < 980) {
           $('#place-and-tabs').removeClass('tabs-left');
+          $('#places').addClass('nav-stacked');
         } else {
           $('#place-and-tabs').addClass('tabs-left');
+          $('#places').removeClass('nav-stacked');
         }
         var info = next420();
         if (info.minutes === 0) {
