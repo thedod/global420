@@ -171,7 +171,7 @@
                 ).click(function() {
                   select_place($(this).parent());
                   $('#place').attr(
-		    'src','http://flickriver.com/search/'+$(window).data('active-place').split(',')[0]+'/'
+		    'src','http://flickriver.com/places/'+$(window).data('active-place')+'/'
 		  );
                   return true;
                 })
