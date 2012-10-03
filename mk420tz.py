@@ -42,4 +42,12 @@ js.write("// Data source: http://timezonedb.com/files/timezonedb.csv.zip\n")
 js.write("//              (version: {0})\n".format(time.ctime(os.stat("zone.csv").st_mtime)))
 js.write("window.timezones = ")
 json.dump(res,js,indent=1)
+js.write(";\n")
 js.close()
+places = file('places.json','w')
+json.dump(
+    reduce(lambda x,y:x+y,[tz[1] for tz in res]),
+    places,indent=1
+)
+places.write("\n")
+places.close()

@@ -24,3 +24,6 @@ window.next420 = function() {
     places: ["Snafu (Yes. It's a bug)"]
   }
 }
+window.flickrplace = function(p) {
+  return window.flickrplaces[p] || '/'+escape(p);
+}

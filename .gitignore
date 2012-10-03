@@ -1,7 +1,8 @@
 README.html
-# Stup that comes from the csv zip
+tz.js
+*.pyc
+# Stuff that comes from the csv zip
 *.csv
 *.zip
 *.sql
 readme.txt
-# tz.js you should generate yourself, but what the heck :)

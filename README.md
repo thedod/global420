@@ -10,7 +10,7 @@ Feel free to fork this if you prefer some other hour :)
 The standard [time zone db](http://timezonedb.com/) needs to
 be pre-processed in order to easily answer these seemingly simple questions.
 
-For that, you should generate `tz.js` by running `mk420tz.py` on the latest csv files (available [here](http://timezonedb.com/download)).
+For that, you should generate `tz.js` by running `python mk420tz.py` on the latest csv files (available [here](http://timezonedb.com/download)).
 
 This should be done each time a time zone goes in or out of daylight saving time (DST). Best is to run this as a daily cron task.
 
@@ -18,8 +18,21 @@ Once in a while, the TZ database changes and you need to load fresh csv files. T
 
 ### Quick start for the lazy
 
-For your convenience, if you want to start running this right away, _some_ version of `tz.js` comes with the repository.
-Not necessarily the freshest, but no harm in running a slightly inaccurate version of this page ;)
+For your convenience, if you want to start running this right away, `tz-example.js` contains _some_ version of `tz.js`.
+Not necessarily the freshest, but no harm in running a slightly inaccurate version of this ;)
+
+### generating flickrplaces.js
+
+Nomally, you _don't_ have to do this, unless a future version of the timezone db introduces new places,
+or you want to change the format of the place names in `tz.js` (by tweaking `mk420tz.py`).
+If you're into it, here's how:
+
+1. Get a flickr [API key](https://secure.flickr.com/services/api/keys/).
+1. Copy `conf-example.py` to `conf.py` and edit it.
+1. Run `python mkflickrplaces.py`. Note that it takes about 15 minutes to run, because it waits 2 seconds
+   between API requests, to avoid flooding the good folks at flickr.
+1. Edit `flickrplaces.js` and fix the bug at "Costa Rita" (it's "/Costa+Rica" and not somewhere in Italy).
+   If you find other bugs there, please leave an issue here.
 
 ### Thanks
 

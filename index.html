@@ -84,6 +84,7 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="tz.js"></script>
+    <script type="text/javascript" src="flickrplaces.js"></script>
     <script type="text/javascript" src="global420.js"></script>
     <script type="text/javascript">
       $(function() {
@@ -172,7 +173,7 @@
                 ).click(function() {
                   select_place($(this).parent());
                   $('#place').attr(
-		    'src','http://flickriver.com/places/'+$(window).data('active-place')+'/'
+		    'src','http://flickriver.com/places'+flickrplace($(window).data('active-place'))
 		  );
                   return true;
                 })
