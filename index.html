@@ -6,14 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="See where it's going to be 4:20 PM next and how soon. Geography education for the short-term memory challenged.">
     <meta name="author" content="The Dod">
-    <!-- Twitter card is counter productive, because it overrides flickr images :(
-      <meta name="twitter:card" content="summary">
-      <meta name="twitter:url" content="http://zzzen.com/global420/">
-      <meta name="twitter:title" content="Global 4:20 countdown">
-      <meta name="twitter:description" content="See where it's going to be 4:20 PM next and how soon">
-      <meta name="twitter:image" content="http://zzzen.com/global420/gfx/apple-touch-icon-114.png">
-      <meta name="twitter:creator" content="@TheRealDod">
-    -->
     <!-- Le styles -->
     <link href="themes/spacelab/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -92,8 +84,8 @@
         $(window).data(
           'active-place',location.hash.slice(1)
         ).data(
-          // 'base-url',location.href.split('#')[0] // use current url for tweets etc.
-          'base-url','http://is.gd/fourtwenty' // use shortened url
+          'base-url',location.href.split('#')[0] // use current url for tweets etc.
+          // 'base-url','http://is.gd/fourtwenty' // use shortened url
         ).data(
           'minutes420',-1
         ).resize(refresh420);
