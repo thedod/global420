@@ -45,3 +45,5 @@ If you're into it, here's how:
 ----------------------------
 
 *<p align="right">Deadlines are either dead or dying. Procrastination is for life.</p>*
+<a href="http://flattr.com/thing/942995/Global-420-countdown" target="_blank">
+<img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a>
