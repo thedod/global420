@@ -80,7 +80,7 @@
     <script type="text/javascript" src="global420.js"></script>
     <script type="text/javascript">
       $(function() {
-        $('#place').attr('src','gfx/rabbit.png');
+        $('#place').attr('src','nowhere.html');
         $(window).data(
           'active-place',location.hash.slice(1)
         ).data(
@@ -194,7 +194,7 @@
         var stale = true;
         $('#places li:contains("'+$(window).data('active-place')+'")').addClass('active').each(function(){stale = false;});
         if (stale) { // 4:21, or someone wrote #Your%20face as hash :)
-          $('#place').attr('src','gfx/rabbit.png');
+          $('#place').attr('src','nowhere.html');
           $(window).data('active-place','');
           location.hash = '';
         }
