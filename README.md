@@ -31,8 +31,11 @@ If you're into it, here's how:
 1. Copy `conf-example.py` to `conf.py` and edit it.
 1. Run `python mkflickrplaces.py`. Note that it takes about 15 minutes to run, because it waits 2 seconds
    between API requests, to avoid flooding the good folks at flickr.
-1. Edit `flickrplaces.js` and fix the bug at "Costa Rita" (it's "/Costa+Rica" and not somewhere in Italy).
-   If you find other bugs there, please leave an issue here.
+1. Edit `flickrplaces.js` and fix the following known bugs
+
+   * `"Costa Rica, CR": "/Italy/Lombardy"` should be `"/Costa+Rica"`
+   * `"Malta, MT": "/United+States/Montana/Malta"` should be `"/Malta"`
+   * If you find other bugs there, please leave an issue here.
 
 ### Thanks
 
@@ -41,6 +44,9 @@ If you're into it, here's how:
 * To [Bootswatch](http://bootswatch.com/) for the themes
 * To [DuckDuckGo](http://duckduckgo.com/), [Open Street Map](http://www.openstreetmap.org/) and [flickriver](http://flickriver.com) for giving us stuff to link to
 * To my wife for discovering the need for such an app. This is her birthday present.
+
+### Frequently Asked question
+Seattle doesn't appear because it isn't on [the timezone list](http://timezonedb.com/time-zones) :(
 
 ----------------------------
 
