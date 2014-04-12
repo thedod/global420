@@ -91,11 +91,6 @@
         ).data(
           'minutes420',-1
         ).resize(refresh420);
-	if ($(window).data('active-place')) {
-          $('#place').attr(
-            'src','https://duckduckgo.com/?q='+encodeURIComponent($(window).data('active-place'))
-          );
-	}
         check420();
       });
       var check420 = function() {
@@ -194,10 +189,13 @@
           );
         }
         $(window).data('stale',true);
-        $('#places li:contains("'+$(window).data('active-place')+'")').first().addClass('active').each(function(){
-          location.href=$(this).find('a').attr('href'); // e.g. #Mos is OK, but should become #Moscow,%20Russia
-          $(window).data('stale',false);
-        });
+        if ($(window).data('active-place')) {
+          $('#places li:contains("'+$(window).data('active-place')+'")').first().addClass('active').each(function(){
+            location.href=$(this).find('a').attr('href'); // e.g. #Mos is OK, but should become #Moscow,%20Russia
+            $(window).data('active-place',$(this).find('a').text());
+            $(window).data('stale',false);
+          });
+        }
         if ($(window).data('stale')) { // 4:21, or someone wrote #Your%20face as hash :)
           $('#place').attr('src','nowhere.html');
           $(window).data('active-place','');
@@ -205,6 +203,9 @@
         }
         if ($(window).data('active-place')) {
             $('#brand').text($('#brand').text()+' in '+$(window).data('active-place'));
+            $('#place').attr(
+              'src','https://duckduckgo.com/?q='+encodeURIComponent($(window).data('active-place'))
+            );
         } 
 	document.title = $('#brand').text();
 	var available_height = $(window).height()-($("#place").position().top+23); // 23 is anti-scrollbar voodoo
