@@ -20,7 +20,7 @@ for r in csv.reader(file("timezone.csv")):
   code = int(r[0])
   if not zones.has_key(code):
     continue
-  starttime = int(r[2])
+  starttime = int(r[2] or "0") # Bugger. They're feeding us blanks for UTC now
   offs = int(r[3])
   if offs < 0:
     offs += 60*60*24

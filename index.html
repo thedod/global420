@@ -191,9 +191,12 @@
             )
           );
         }
-        var stale = true;
-        $('#places li:contains("'+$(window).data('active-place')+'")').addClass('active').each(function(){stale = false;});
-        if (stale) { // 4:21, or someone wrote #Your%20face as hash :)
+        $(window).data('stale',true);
+        $('#places li:contains("'+$(window).data('active-place')+'")').first().addClass('active').each(function(){
+          location.href=$(this).find('a').attr('href'); // e.g. #Mos is OK, but should become #Moscow,%20Russia
+          $(window).data('stale',false);
+        });
+        if ($(window).data('stale')) { // 4:21, or someone wrote #Your%20face as hash :)
           $('#place').attr('src','nowhere.html');
           $(window).data('active-place','');
           location.hash = '';
