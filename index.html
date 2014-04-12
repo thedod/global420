@@ -81,8 +81,10 @@
     <script type="text/javascript">
       $(function() {
         $('#place').attr('src','nowhere.html');
+        var hashplace = location.hash.slice(1);
+        if (hashplace.search('%')>=0) hashplace = unescape(hashplace); // Some browsers unescape hash, some don't. Grrr.
         $(window).data(
-          'active-place',location.hash.slice(1)
+          'active-place',hashplace
         ).data(
           'base-url',location.href.split('#')[0] // use current url for tweets etc.
           // 'base-url','http://is.gd/fourtwenty' // use shortened url
