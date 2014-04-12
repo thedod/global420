@@ -1,4 +1,4 @@
-# Generates tz.js from time zone csv files
+# Generates tz.js[on] from time zone csv files
 # get latest files from http://timezonedb.com/download
 import csv,json,time,os
 countries = {}
@@ -44,6 +44,7 @@ js.write("window.timezones = ")
 json.dump(res,js,indent=1)
 js.write(";\n")
 js.close()
+json.dump(res,file('tz.json','w'),indent=1)
 places = file('places.json','w')
 json.dump(
     reduce(lambda x,y:x+y,[tz[1] for tz in res]),

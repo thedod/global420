@@ -1,5 +1,7 @@
 README.html
 tz.js
+tz.json
+420.rss
 *.pyc
 # Stuff that comes from the csv zip
 *.csv
