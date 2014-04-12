@@ -203,9 +203,12 @@
         }
         if ($(window).data('active-place')) {
             $('#brand').text($('#brand').text()+' in '+$(window).data('active-place'));
-            $('#place').attr(
-              'src','https://duckduckgo.com/?q='+encodeURIComponent($(window).data('active-place'))
-            );
+            if ($('#place').attr('src').search($(window).data('active-place'))<0 && // don't refresh if we're already there
+                $('#place').attr('src').search(encodeURIComponent($(window).data('active-place')))<0) { // some browsers encode, some don't :)
+              $('#place').attr(
+                'src','https://duckduckgo.com/?q='+encodeURIComponent($(window).data('active-place'))
+              );
+            }
         } 
 	document.title = $('#brand').text();
 	var available_height = $(window).height()-($("#place").position().top+23); // 23 is anti-scrollbar voodoo
