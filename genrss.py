@@ -36,7 +36,7 @@ def main():
        language='en',
        items=[RSSItem(
            title=title,
-           link='http://https://zzzen.com/420#{0}'.format(urllib2.quote(place)))]).to_xml('utf-8'))
+           link='https://zzzen.com/420#{0}'.format(urllib2.quote(place)))]).to_xml('utf-8'))
 
 if __name__=='__main__':
     main()
