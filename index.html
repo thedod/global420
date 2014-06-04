@@ -29,7 +29,7 @@
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="local/html5.js"></script>
     <![endif]-->
 
     <!-- Le fav and touch icons -->
@@ -74,7 +74,7 @@
         </div>
       </div>
     </div>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="local/jquery-latest.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="tz.js"></script>
     <script type="text/javascript" src="flickrplaces.js"></script>
@@ -92,9 +92,9 @@
         ).data(
           'minutes420',-1
         ).resize(refresh420);
-        check420();
+        check420(true);
       });
-      var check420 = function() {
+      var check420 = function(load_iframe) {
         var current = next420().minutes;
         var previous = $(window).data('minutes420');
         if (current === previous) {
@@ -102,8 +102,8 @@
           return;
         }
         $(window).data('minutes420',current);
-        refresh420();
-        setTimeout(check420,1000);
+        refresh420(load_iframe);
+        setTimeout('check420(false)',1000);
       }
       var select_place = function(link) {
         $('.place-tab').removeClass('active');
@@ -111,7 +111,7 @@
         $(window).data('active-place',link.text().replace(/^ */,''));
         refresh420();
       };
-      var refresh420 = function() {
+      var refresh420 = function(load_iframe) {
         if ($(window).width() < 980) {
           $('#place-and-tabs').removeClass('tabs-left');
           $('#places').addClass('nav-pills nav-stacked').removeClass('nav-tabs span3');
@@ -151,7 +151,7 @@
                 ).click(function() {
                   select_place($(this).parent());
                   $('#place').attr(
-		    'src','http://nominatim.openstreetmap.org/search/'+encodeURIComponent($(window).data('active-place'))
+		    'src','https://nominatim.openstreetmap.org/search/'+encodeURIComponent($(window).data('active-place'))
 		  );
                   return true;
                })
@@ -159,12 +159,14 @@
                 $('<span/>').text(' ')
               ).prepend(
                 $('<i/>').addClass('icon-camera'
-                ).tooltip({title:'Flickriver',placement:'right'}
+                ).tooltip({title:'Flickr',placement:'right'}
                 ).click(function() {
                   select_place($(this).parent());
-                  $('#place').attr(
-		    'src','http://flickriver.com/places'+flickrplace($(window).data('active-place'))
-		  );
+                  // flickriver has no ssl, flickr doesn't allow embedding, whadever
+                  window.open('https://www.flickr.com/places'+flickrplace($(window).data('active-place')));
+                  // $('#place').attr(
+		  //  'src','https://www.flickr.com/places'+flickrplace($(window).data('active-place'))
+		  //);
                   return true;
                 })
               ).prepend(
@@ -204,11 +206,12 @@
         }
         if ($(window).data('active-place')) {
             $('#brand').text($('#brand').text()+' in '+$(window).data('active-place'));
-            if ($('#place').attr('src').search($(window).data('active-place'))<0 && // don't refresh if we're already there
-                $('#place').attr('src').search(encodeURIComponent($(window).data('active-place')))<0) { // some browsers encode, some don't :)
-              $('#place').attr(
-                'src','https://duckduckgo.com/?q='+encodeURIComponent($(window).data('active-place'))
-              );
+            if (load_iframe) {
+                if ($('#place').attr('src').search($(window).data('active-place'))<0 && // don't refresh if we're already there
+                        $('#place').attr('src').search(encodeURIComponent($(window).data('active-place')))<0) { // some browsers encode, some don't :)
+                    $('#place').attr(
+                      'src','https://duckduckgo.com/?q='+encodeURIComponent($(window).data('active-place')));
+                }
             }
         } 
 	document.title = $('#brand').text();
