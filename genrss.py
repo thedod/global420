@@ -31,12 +31,12 @@ def main():
         
     file('420.rss','w').write(RSS2(
        title='Global 4:20 clock',
-       link='http://is.gd/fourtwenty',
+       link='https://zzzen.com/420',
        description='Keep up with where #FourTwenty happens next',
        language='en',
        items=[RSSItem(
            title=title,
-           link='http://is.gd/fourtwenty#{0}'.format(urllib2.quote(place)))]).to_xml('utf-8'))
+           link='http://https://zzzen.com/420#{0}'.format(urllib2.quote(place)))]).to_xml('utf-8'))
 
 if __name__=='__main__':
     main()
